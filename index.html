@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerShop Pro - Hệ thống Nạp Thẻ & Cửa hàng Game Uy Tín</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            900: '#7f1d1d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <a href="#" class="flex items-center gap-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-500 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <div>
+                            <span class="text-lg font-black tracking-wider text-slate-900">GAMERSHOP</span>
+                            <span class="text-xs font-bold text-brand-600 block -mt-1">PRO PLATFORM</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+                    <a href="#home" class="hover:text-brand-600 transition-colors text-brand-600">Trang chủ</a>
+                    <a href="#topup" class="hover:text-brand-600 transition-colors">Nạp thẻ game</a>
+                    <a href="#store" class="hover:text-brand-600 transition-colors">Shop Tài Khoản</a>
+                    <a href="#history" class="hover:text-brand-600 transition-colors">Tra cứu đơn</a>
+                    <a href="#faq" class="hover:text-brand-600 transition-colors">Hỗ trợ</a>
+                </nav>
+
+                <!-- Right Actions -->
+                <div class="flex items-center gap-3">
+                    <button onclick="openModal('login-modal')" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition">
+                        <i class="fa-regular fa-user"></i> Đăng nhập
+                    </button>
+                    <button onclick="openModal('login-modal')" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-lg shadow-sm transition">
+                        <i class="fa-solid fa-wallet"></i> Nạp tiền ngay
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-600 hover:text-slate-900">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-100 bg-white px-4 py-3 space-y-2 text-sm font-semibold">
+            <a href="#home" class="block py-2 text-brand-600">Trang chủ</a>
+            <a href="#topup" class="block py-2 text-slate-600">Nạp thẻ game</a>
+            <a href="#store" class="block py-2 text-slate-600">Shop Tài Khoản</a>
+            <a href="#history" class="block py-2 text-slate-600">Tra cứu đơn</a>
+            <a href="#faq" class="block py-2 text-slate-600">Hỗ trợ</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow">
+        
+        <!-- HERO / BANNER SECTION -->
+        <section id="home" class="bg-gradient-to-r from-slate-900 via-slate-800 to-brand-900 text-white py-12 lg:py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="space-y-6">
+                    <span class="bg-brand-600/30 border border-brand-500/50 text-brand-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        ⚡ Hệ thống nạp tự động 24/7
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                        Nạp Game Siêu Rẻ <br><span class="text-brand-500">Chiết Khấu Lên Đến 10%</span>
+                    </h1>
+                    <p class="text-slate-300 text-sm sm:text-base max-w-lg">
+                        Cổng thanh toán chính thức uy tín hàng đầu. Hỗ trợ đa dạng tựa game hot: FC Mobile, Liên Quân, Free Fire, Genshin Impact và hàng ngàn vật phẩm giá trị.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#topup" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-600/30 transition flex items-center gap-2">
+                            <i class="fa-solid fa-bolt"></i> Nạp Ngay Lập Tức
+                        </a>
+                        <a href="#store" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold rounded-xl transition flex items-center gap-2">
+                            <i class="fa-solid fa-store"></i> Khám Phá Shop
+                        </a>
+                    </div>
+                </div>
+                <!-- Quick Stats / Banner Cards -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl">
+                        <div class="w-10 h-10 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center text-lg mb-3">
+                            <i class="fa-solid fa-shield-check"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Bảo Mật 100%</h3>
+                        <p class="text-xs text-slate-400 mt-1">Mã hóa dữ liệu tuyệt đối, không lưu trữ thông tin nhạy cảm.</p>
+                    </div>
+                    <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg mb-3">
+                            <i class="fa-solid fa-bolt-lightning"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Xử Lý Siêu Tốc</h3>
+                        <p class="text-xs text-slate-400 mt-1">Giao dịch hoàn tất chỉ trong 3 giây sau khi thanh toán.</p>
+                    </div>
+                    <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg mb-3">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Hỗ Trợ 24/7</h3>
+                        <p class="text-xs text-slate-400 mt-1">Đội ngũ CSKH trực tuyến sẵn sàng giải đáp mọi thắc mắc.</p>
+                    </div>
+                    <div class="bg-slate-800/80 backdrop-blur border border-slate-700 p-5 rounded-2xl">
+                        <div class="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg mb-3">
+                            <i class="fa-solid fa-gift"></i>
+                        </div>
+                        <h3 class="font-bold text-lg">Ưu Đãi Khủng</h3>
+                        <p class="text-xs text-slate-400 mt-1">Hoàn tiền và tặng mã giảm giá cho thành viên thân thiết.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOP-UP SECTION -->
+        <section id="topup" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-brand-600 font-bold text-xs uppercase tracking-widest bg-brand-50 px-3 py-1 rounded-full">Nạp thẻ trực tuyến</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold mt-2 text-slate-900">Chọn Trò Chơi & Mệnh Giá</h2>
+                <p class="text-slate-500 text-sm mt-1">Nhập ID tài khoản và chọn gói nạp phù hợp để nhận ưu đãi ngay.</p>
+            </div>
+
+            <!-- Game Selector Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-8">
+                <button onclick="selectGame('FC Mobile VN', this)" class="game-btn bg-white border-2 border-brand-600 rounded-xl p-3 text-center shadow-sm transition hover:border-brand-600 group">
+                    <div class="w-12 h-12 mx-auto rounded-lg bg-brand-100 flex items-center justify-center text-brand-600 font-bold text-lg mb-2 group-hover:scale-105 transition">⚽</div>
+                    <span class="text-xs font-bold block text-slate-900">FC Mobile</span>
+                </button>
+                <button onclick="selectGame('Liên Quân Mobile', this)" class="game-btn bg-white border-2 border-slate-200 hover:border-brand-500 rounded-xl p-3 text-center shadow-sm transition group">
+                    <div class="w-12 h-12 mx-auto rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-lg mb-2 group-hover:scale-105 transition">⚔️</div>
+                    <span class="text-xs font-bold block text-slate-900">Liên Quân</span>
+                </button>
+                <button onclick="selectGame('Free Fire', this)" class="game-btn bg-white border-2 border-slate-200 hover:border-brand-500 rounded-xl p-3 text-center shadow-sm transition group">
+                    <div class="w-12 h-12 mx-auto rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 font-bold text-lg mb-2 group-hover:scale-105 transition">🔥</div>
+                    <span class="text-xs font-bold block text-slate-900">Free Fire</span>
+                </button>
+                <button onclick="selectGame('Genshin Impact', this)" class="game-btn bg-white border-2 border-slate-200 hover:border-brand-500 rounded-xl p-3 text-center shadow-sm transition group">
+                    <div class="w-12 h-12 mx-auto rounded-lg bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-lg mb-2 group-hover:scale-105 transition">✨</div>
+                    <span class="text-xs font-bold block text-slate-900">Genshin</span>
+                </button>
+                <button onclick="selectGame('Honkai Star Rail', this)" class="game-btn bg-white border-2 border-slate-200 hover:border-brand-500 rounded-xl p-3 text-center shadow-sm transition group">
+                    <div class="w-12 h-12 mx-auto rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg mb-2 group-hover:scale-105 transition">🚀</div>
+                    <span class="text-xs font-bold block text-slate-900">Star Rail</span>
+                </button>
+                <button onclick="selectGame('Nạp Sò Garena', this)" class="game-btn bg-white border-2 border-slate-200 hover:border-brand-500 rounded-xl p-3 text-center shadow-sm transition group">
+                    <div class="w-12 h-12 mx-auto rounded-lg bg-red-100 flex items-center justify-center text-red-600 font-bold text-lg mb-2 group-hover:scale-105 transition">🪙</div>
+                    <span class="text-xs font-bold block text-slate-900">Nạp Sò</span>
+                </button>
+                <button onclick="selectGame('PUBG Mobile', this)" class="game-btn bg-white border-2 border-slate-200 hover:border-brand-500 rounded-xl p-3 text-center shadow-sm transition group">
+                    <div class="w-12 h-12 mx-auto rounded-lg bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-lg mb-2 group-hover:scale-105 transition">🎯</div>
+                    <span class="text-xs font-bold block text-slate-900">PUBG Mobile</span>
+                </button>
+            </div>
+
+            <!-- Top-Up Form Panel -->
+            <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left: Input & Packages -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Step 1: Account Info -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">1</span>
+                            <h3 class="font-bold text-sm text-slate-900">Thông tin tài khoản</h3>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">ID Người chơi / UID</label>
+                                <input type="text" id="user-id" placeholder="Nhập ID tài khoản game của bạn" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-brand-600 transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Máy chủ / Server</label>
+                                <select class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-brand-600 transition">
+                                    <option>Việt Nam (VN)</option>
+                                    <option>Đông Nam Á (SEA)</option>
+                                    <option>Global (Quốc tế)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Select Package -->
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">2</span>
+                                <h3 class="font-bold text-sm text-slate-900">Chọn gói mệnh giá (<span id="selected-game-label" class="text-brand-600">FC Mobile VN</span>)</h3>
+                            </div>
+                            <span class="text-xs text-slate-500 font-medium">Chiết khấu đặc biệt 10%</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <div onclick="selectPackage(this, 20000, '40 Cash')" class="package-card border-2 border-brand-600 bg-brand-50/50 rounded-xl p-4 cursor-pointer transition hover:shadow-sm">
+                                <div class="font-extrabold text-slate-900">20.000 ₫</div>
+                                <div class="text-xs text-brand-600 font-bold mt-1">40 Cash + Bonus 5%</div>
+                            </div>
+                            <div onclick="selectPackage(this, 50000, '102 Cash')" class="package-card border-2 border-slate-200 hover:border-brand-500 rounded-xl p-4 cursor-pointer transition hover:shadow-sm">
+                                <div class="font-extrabold text-slate-900">50.000 ₫</div>
+                                <div class="text-xs text-slate-500 font-bold mt-1">102 Cash</div>
+                            </div>
+                            <div onclick="selectPackage(this, 100000, '204 Cash')" class="package-card border-2 border-slate-200 hover:border-brand-500 rounded-xl p-4 cursor-pointer transition hover:shadow-sm">
+                                <div class="font-extrabold text-slate-900">100.000 ₫</div>
+                                <div class="text-xs text-slate-500 font-bold mt-1">204 Cash</div>
+                            </div>
+                            <div onclick="selectPackage(this, 200000, '415 Cash')" class="package-card border-2 border-slate-200 hover:border-brand-500 rounded-xl p-4 cursor-pointer transition hover:shadow-sm">
+                                <div class="font-extrabold text-slate-900">200.000 ₫</div>
+                                <div class="text-xs text-slate-500 font-bold mt-1">415 Cash</div>
+                            </div>
+                            <div onclick="selectPackage(this, 500000, '1050 Cash')" class="package-card border-2 border-slate-200 hover:border-brand-500 rounded-xl p-4 cursor-pointer transition hover:shadow-sm">
+                                <div class="font-extrabold text-slate-900">500.000 ₫</div>
+                                <div class="text-xs text-slate-500 font-bold mt-1">1.050 Cash</div>
+                            </div>
+                            <div onclick="selectPackage(this, 1000000, '2200 Cash')" class="package-card border-2 border-slate-200 hover:border-brand-500 rounded-xl p-4 cursor-pointer transition hover:shadow-sm">
+                                <div class="font-extrabold text-slate-900">1.000.000 ₫</div>
+                                <div class="text-xs text-slate-500 font-bold mt-1">2.200 Cash 🔥</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Payment & Summary -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="w-6 h-6 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center">3</span>
+                            <h3 class="font-bold text-sm text-slate-900">Phương thức thanh toán</h3>
+                        </div>
+                        <div class="space-y-2.5 text-xs font-medium">
+                            <label class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-brand-500 transition">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="payment" checked class="accent-brand-600">
+                                    <span>Ví ShopeePay / Momo</span>
+                                </div>
+                                <span class="bg-red-100 text-brand-600 px-2 py-0.5 rounded font-bold text-[10px]">HOT</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-brand-500 transition">
+                                <input type="radio" name="payment" class="accent-brand-600">
+                                <span>QR Pay (Quét mã ngân hàng)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-brand-500 transition">
+                                <input type="radio" name="payment" class="accent-brand-600">
+                                <span>Thẻ cào điện thoại (Viettel, Mobi, Vina)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-brand-500 transition">
+                                <input type="radio" name="payment" class="accent-brand-600">
+                                <span>ATM / Internet Banking</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Bill Details -->
+                    <div class="mt-6 pt-4 border-t border-slate-200 space-y-2 text-xs">
+                        <div class="flex justify-between text-slate-600">
+                            <span>Sản phẩm:</span>
+                            <span id="summary-game" class="font-bold text-slate-900">FC Mobile VN (40 Cash)</span>
+                        </div>
+                        <div class="flex justify-between text-slate-600">
+                            <span>Phí giao dịch:</span>
+                            <span class="font-bold text-green-600">Miễn phí (0 ₫)</span>
+                        </div>
+                        <div class="flex justify-between text-sm pt-2 border-t font-bold">
+                            <span>Tổng thanh toán:</span>
+                            <span id="summary-price" class="text-brand-600 text-base">20.000 ₫</span>
+                        </div>
+                        <button onclick="processTopUp()" class="w-full mt-4 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-lock"></i> Thanh Toán Ngay
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STORE / ACCOUNT SHOP SECTION -->
+        <section id="store" class="py-12 bg-slate-100/70 border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+                    <div>
+                        <span class="text-brand-600 font-bold text-xs uppercase tracking-widest bg-brand-50 px-3 py-1 rounded-full">Cửa hàng uy tín</span>
+                        <h2 class="text-2xl font-extrabold mt-2 text-slate-900">Tài khoản & Vật phẩm Game chọn lọc</h2>
+                    </div>
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap gap-2 text-xs font-semibold">
+                        <button onclick="filterStore('all')" class="store-filter px-4 py-2 bg-brand-600 text-white rounded-xl shadow-sm transition">Tất cả</button>
+                        <button onclick="filterStore('fc')" class="store-filter px-4 py-2 bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 rounded-xl transition">Acc FC Mobile</button>
+                        <button onclick="filterStore('lq')" class="store-filter px-4 py-2 bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 rounded-xl transition">Acc Liên Quân</button>
+                        <button onclick="filterStore('ff')" class="store-filter px-4 py-2 bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 rounded-xl transition">Acc Free Fire</button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Product Card 1 -->
+                    <div class="store-item fc bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-44 bg-slate-200">
+                                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&auto=format&fit=crop&q=60" alt="Game" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-brand-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg">GIẢM 30%</span>
+                            </div>
+                            <div class="p-4 space-y-2">
+                                <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">FC Mobile VN • Đội hình 150B</div>
+                                <h3 class="font-bold text-slate-900 text-sm line-clamp-1">Acc VIP Full Icon + Gullit TTN + 50.000 FC</h3>
+                                <div class="text-xs text-slate-500">Đăng nhập: Garena Trắng Thông Tin</div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-100 mt-3">
+                            <div>
+                                <span class="text-xs text-slate-400 line-through">500.000 ₫</span>
+                                <div class="text-base font-extrabold text-brand-600">350.000 ₫</div>
+                            </div>
+                            <button onclick="buyProduct('Acc FC Mobile VIP #102')" class="px-4 py-2 bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold rounded-xl transition">
+                                Mua ngay
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="store-item lq bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-44 bg-slate-200">
+                                <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500&auto=format&fit=crop&q=60" alt="Game" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg">HOT</span>
+                            </div>
+                            <div class="p-4 space-y-2">
+                                <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Liên Quân • Sở hữu 85 Tướng</div>
+                                <h3 class="font-bold text-slate-900 text-sm line-clamp-1">Acc Full Bảng Ngọc Cấp 3 + 12 Trang Phục SS</h3>
+                                <div class="text-xs text-slate-500">Đăng nhập: Facebook Trắng</div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-100 mt-3">
+                            <div>
+                                <span class="text-xs text-slate-400 line-through">300.000 ₫</span>
+                                <div class="text-base font-extrabold text-brand-600">199.000 ₫</div>
+                            </div>
+                            <button onclick="buyProduct('Acc Liên Quân #254')" class="px-4 py-2 bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold rounded-xl transition">
+                                Mua ngay
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="store-item ff bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-44 bg-slate-200">
+                                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&auto=format&fit=crop&q=60" alt="Game" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-brand-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg">GIẢM 50%</span>
+                            </div>
+                            <div class="p-4 space-y-2">
+                                <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Free Fire • Rank Thách Đấu</div>
+                                <h3 class="font-bold text-slate-900 text-sm line-clamp-1">Acc Thẻ Vô Cực + Súng K4 Bắn Tỉa Siêu Xịn</h3>
+                                <div class="text-xs text-slate-500">Đăng nhập: Google</div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-100 mt-3">
+                            <div>
+                                <span class="text-xs text-slate-400 line-through">200.000 ₫</span>
+                                <div class="text-base font-extrabold text-brand-600">99.000 ₫</div>
+                            </div>
+                            <button onclick="buyProduct('Acc Free Fire #889')" class="px-4 py-2 bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold rounded-xl transition">
+                                Mua ngay
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 -->
+                    <div class="store-item fc bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-44 bg-slate-200">
+                                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=60" alt="Game" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg">NEW</span>
+                            </div>
+                            <div class="p-4 space-y-2">
+                                <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">FC Mobile • Tài nguyên khủng</div>
+                                <h3 class="font-bold text-slate-900 text-sm line-clamp-1">Acc Khởi Nghiệp 10.000 FC + 5 Tỷ BP Sạch</h3>
+                                <div class="text-xs text-slate-500">Đăng nhập: Nexon ID</div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-100 mt-3">
+                            <div>
+                                <span class="text-xs text-slate-400 line-through">150.000 ₫</span>
+                                <div class="text-base font-extrabold text-brand-600">79.000 ₫</div>
+                            </div>
+                            <button onclick="buyProduct('Acc FC Mobile Starter #40')" class="px-4 py-2 bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold rounded-xl transition">
+                                Mua ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRANSACTION HISTORY LOOKUP -->
+        <section id="history" class="py-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+                <div class="text-center max-w-lg mx-auto mb-6">
+                    <h2 class="text-xl font-extrabold text-slate-900">Tra Cứu Giao Dịch</h2>
+                    <p class="text-xs text-slate-500 mt-1">Nhập mã đơn hàng hoặc số điện thoại để kiểm tra trạng thái nạp tiền.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="search-code" placeholder="Nhập mã đơn hàng (VD: #GS92841)..." class="flex-grow bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-600">
+                    <button onclick="lookupTransaction()" class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm transition">
+                        Tra cứu ngay
+                    </button>
+                </div>
+                <div id="lookup-result" class="mt-6 hidden bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-2">
+                    <div class="flex justify-between font-bold text-slate-800">
+                        <span>Mã đơn: #GS92841</span>
+                        <span class="text-green-600 bg-green-100 px-2 py-0.5 rounded">Thành công</span>
+                    </div>
+                    <div class="text-slate-600">Sản phẩm: FC Mobile VN (40 Cash)</div>
+                    <div class="text-slate-600">Thời gian: 10/10/2026 - 10:45</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section id="faq" class="py-12 bg-white border-t border-slate-200">
+            <div class="max-w-4xl mx-
